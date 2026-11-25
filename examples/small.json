@@ -1,0 +1,13 @@
+{
+  "now": 0,
+  "lookback_seconds": 604800,
+  "max_protected_seconds": 28800,
+  "pools": { "b300": { "id": "b300", "gpu_kind": "B300" } },
+  "nodes": { "node-1": { "id": "node-1", "pool": "b300", "gpus": 1, "schedulable": true } },
+  "accounts": {
+    "research": { "id": "research", "pool": "b300", "parent": null, "weight": 1 },
+    "training": { "id": "training", "pool": "b300", "parent": "research", "weight": 3 },
+    "rollouts": { "id": "rollouts", "pool": "b300", "parent": "research", "weight": 1 }
+  },
+  "jobs": {}
+}

@@ -1,0 +1,30 @@
+[package]
+name = "soul"
+version = "0.0.1"
+edition = "2024"
+rust-version = "1.89"
+default-run = "soul"
+description = "A GPU workload scheduler for Linux clusters"
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/stmonty/soul"
+documentation = "https://docs.rs/soul"
+keywords = ["gpu", "scheduler", "cluster", "hpc"]
+categories = ["command-line-utilities", "simulation"]
+include = [
+    "/Cargo.toml", "/Cargo.lock", "/README.md", "/LICENSE", "/src/**/*.rs",
+    "/examples/small.json", "/examples/job.json", "/examples/resize-trace.json",
+]
+
+[dependencies]
+axum = "0.8"
+ureq = { version = "3", default-features = false, features = ["json"] }
+rusqlite = { version = "0.41.1", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal", "time"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

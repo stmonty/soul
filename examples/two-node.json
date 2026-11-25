@@ -1,0 +1,12 @@
+{
+  "now": 0,
+  "lookback_seconds": 604800,
+  "max_protected_seconds": 28800,
+  "pools": { "test": { "id": "test", "gpu_kind": "synthetic" } },
+  "nodes": {
+    "node-1": { "id": "node-1", "pool": "test", "gpus": 1, "schedulable": true, "address": "127.0.0.1" },
+    "node-2": { "id": "node-2", "pool": "test", "gpus": 1, "schedulable": true, "address": "127.0.0.1" }
+  },
+  "accounts": { "research": { "id": "research", "pool": "test", "parent": null, "weight": 1 } },
+  "jobs": {}
+}

@@ -1,0 +1,120 @@
+{
+  "horizon": 120,
+  "inventory": {
+    "now": 0,
+    "lookback_seconds": 604800,
+    "max_protected_seconds": 28800,
+    "pools": {
+      "test": {
+        "id": "test",
+        "gpu_kind": "synthetic"
+      }
+    },
+    "nodes": {
+      "node-1": {
+        "id": "node-1",
+        "pool": "test",
+        "gpus": 1,
+        "schedulable": true,
+        "address": "127.0.0.1"
+      },
+      "node-2": {
+        "id": "node-2",
+        "pool": "test",
+        "gpus": 1,
+        "schedulable": true,
+        "address": "127.0.0.1"
+      }
+    },
+    "accounts": {
+      "research": {
+        "id": "research",
+        "pool": "test",
+        "parent": null,
+        "weight": 1
+      },
+      "train": {
+        "id": "train",
+        "pool": "test",
+        "parent": "research",
+        "weight": 1
+      },
+      "batch": {
+        "id": "batch",
+        "pool": "test",
+        "parent": "research",
+        "weight": 1
+      }
+    },
+    "jobs": {}
+  },
+  "workloads": [
+    {
+      "at": 0,
+      "spec": {
+        "id": "blocker",
+        "account": "batch",
+        "pool": "test",
+        "image": "synthetic",
+        "command": [
+          "run"
+        ],
+        "nodes": 1,
+        "gpus_per_node": 1,
+        "protected_seconds": 1,
+        "resumable": false
+      },
+      "work": 10,
+      "rates": {
+        "1": 1
+      }
+    },
+    {
+      "at": 1,
+      "spec": {
+        "id": "trainer",
+        "account": "train",
+        "pool": "test",
+        "image": "synthetic",
+        "command": [
+          "run"
+        ],
+        "nodes": 2,
+        "gpus_per_node": 1,
+        "protected_seconds": 1,
+        "resumable": false,
+        "fallback_nodes": [
+          1
+        ],
+        "resize_policy": "grow_when_idle"
+      },
+      "work": 48,
+      "rates": {
+        "1": 1,
+        "2": 2
+      },
+      "checkpoint_seconds": 2,
+      "restore_seconds": 1
+    },
+    {
+      "at": 16,
+      "spec": {
+        "id": "gang",
+        "account": "batch",
+        "pool": "test",
+        "image": "synthetic",
+        "command": [
+          "run"
+        ],
+        "nodes": 2,
+        "gpus_per_node": 1,
+        "protected_seconds": 1,
+        "resumable": false
+      },
+      "work": 12,
+      "rates": {
+        "2": 2
+      }
+    }
+  ]
+}
